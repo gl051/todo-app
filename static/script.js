@@ -137,34 +137,17 @@ function renderTasks() {
 }
 
 function createTaskCard(task) {
-    const dueDate = task.due_date ? new Date(task.due_date) : null;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const isOverdue = dueDate && dueDate < today && !task.completed;
-    
-    const dueDateStr = dueDate 
-        ? dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-        : 'No due date';
-    
     return `
-        <div class="task-card priority-${task.priority} ${task.completed ? 'completed' : ''}">
-            <div class="task-header">
-                <div class="task-content">
-                    <div class="task-title">${escapeHtml(task.title)}</div>
-                    ${task.description ? `<div class="task-description">${escapeHtml(task.description)}</div>` : ''}
+        <div class="task-card ${task.completed ? 'completed' : ''}">
+            <div class="task-row">
+                <div class="task-title">${escapeHtml(task.title)}</div>
+                <div class="task-icons">
+                    <input type="checkbox" class="task-checkbox" id="checkbox-${task.id}" ${task.completed ? 'checked' : ''} title="Mark as done">
+                    <button class="icon-btn edit-icon" id="edit-${task.id}" title="Edit">✏️</button>
+                    <button class="icon-btn delete-icon" id="delete-${task.id}" title="Delete">🗑️</button>
                 </div>
-                <input type="checkbox" class="task-checkbox" id="checkbox-${task.id}" ${task.completed ? 'checked' : ''}>
             </div>
-            <div class="task-meta">
-                <span class="priority-badge priority-${task.priority}">${task.priority}</span>
-                <span class="due-date ${isOverdue ? 'overdue' : ''}">
-                    📅 ${dueDateStr}
-                </span>
-            </div>
-            <div class="task-actions">
-                <button class="btn btn-edit" id="edit-${task.id}">Edit</button>
-                <button class="btn btn-danger" id="delete-${task.id}">Delete</button>
-            </div>
+            ${task.description ? `<div class="task-description">${escapeHtml(task.description)}</div>` : ''}
         </div>
     `;
 }
