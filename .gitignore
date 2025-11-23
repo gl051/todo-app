@@ -10,7 +10,6 @@ ENV/
 
 # Node.js
 node_modules/
-package-lock.json
 
 # Linting
 .eslintcache
@@ -25,3 +24,6 @@ package-lock.json
 # OS
 .DS_Store
 Thumbs.db
+
+# App data
+tasks.json
