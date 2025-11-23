@@ -1,12 +1,27 @@
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .Python
-env/
 venv/
-.venv/
-tasks.json
-.DS_Store
-*.log
+env/
+ENV/
 
+# Node.js
+node_modules/
+package-lock.json
+
+# Linting
+.eslintcache
+.stylelintcache
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

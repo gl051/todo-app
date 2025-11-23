@@ -71,9 +71,49 @@ http://127.0.0.1:5000
 
 Tasks are stored in `tasks.json` in the project root directory. This file is automatically created when you add your first task.
 
+## Linting
+
+This project uses linters to maintain code quality:
+
+### Python Linting (flake8)
+
+Run the Python linter:
+```bash
+python lint.py
+```
+
+Or run flake8 directly:
+```bash
+flake8 app.py
+```
+
+### JavaScript & CSS Linting (Optional)
+
+To use JavaScript (ESLint) and CSS (stylelint) linters, you'll need Node.js installed:
+
+1. Install Node.js from [nodejs.org](https://nodejs.org/)
+
+2. Install npm dependencies:
+```bash
+npm install
+```
+
+3. Run the linters:
+```bash
+# Lint JavaScript only
+npm run lint:js
+
+# Lint CSS only
+npm run lint:css
+
+# Lint both JavaScript and CSS
+npm run lint
+```
+
 ## Requirements
 
 - Python 3.7+
 - Flask 3.0.0
 - Modern web browser
+- Node.js (optional, for JavaScript/CSS linting)
 

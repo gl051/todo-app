@@ -57,62 +57,62 @@ function renderTasks() {
 
     // Apply sorting based on selected option
     switch (sortOption) {
-        case 'due-date-asc':
-            sortedTasks.sort((a, b) => {
-                if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                if (!a.due_date && !b.due_date) return 0;
-                if (!a.due_date) return 1;
-                if (!b.due_date) return -1;
-                return new Date(a.due_date) - new Date(b.due_date);
-            });
-            break;
+    case 'due-date-asc':
+        sortedTasks.sort((a, b) => {
+            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+            if (!a.due_date && !b.due_date) return 0;
+            if (!a.due_date) return 1;
+            if (!b.due_date) return -1;
+            return new Date(a.due_date) - new Date(b.due_date);
+        });
+        break;
         
-        case 'due-date-desc':
-            sortedTasks.sort((a, b) => {
-                if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                if (!a.due_date && !b.due_date) return 0;
-                if (!a.due_date) return 1;
-                if (!b.due_date) return -1;
-                return new Date(b.due_date) - new Date(a.due_date);
-            });
-            break;
+    case 'due-date-desc':
+        sortedTasks.sort((a, b) => {
+            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+            if (!a.due_date && !b.due_date) return 0;
+            if (!a.due_date) return 1;
+            if (!b.due_date) return -1;
+            return new Date(b.due_date) - new Date(a.due_date);
+        });
+        break;
         
-        case 'priority-asc':
-            sortedTasks.sort((a, b) => {
-                if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                const priorityOrder = { urgent: 3, important: 2, normal: 1 };
+    case 'priority-asc':
+        sortedTasks.sort((a, b) => {
+            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+            const priorityOrder = { urgent: 3, important: 2, normal: 1 };
+            return priorityOrder[b.priority] - priorityOrder[a.priority];
+        });
+        break;
+        
+    case 'priority-desc':
+        sortedTasks.sort((a, b) => {
+            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+            const priorityOrder = { urgent: 3, important: 2, normal: 1 };
+            return priorityOrder[a.priority] - priorityOrder[b.priority];
+        });
+        break;
+        
+    case 'default':
+    default:
+        // Default: incomplete first, then by priority, then by due date
+        sortedTasks.sort((a, b) => {
+            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+            if (a.completed) return 0;
+                
+            const priorityOrder = { urgent: 3, important: 2, normal: 1 };
+            if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
                 return priorityOrder[b.priority] - priorityOrder[a.priority];
-            });
-            break;
-        
-        case 'priority-desc':
-            sortedTasks.sort((a, b) => {
-                if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                const priorityOrder = { urgent: 3, important: 2, normal: 1 };
-                return priorityOrder[a.priority] - priorityOrder[b.priority];
-            });
-            break;
-        
-        case 'default':
-        default:
-            // Default: incomplete first, then by priority, then by due date
-            sortedTasks.sort((a, b) => {
-                if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                if (a.completed) return 0;
+            }
                 
-                const priorityOrder = { urgent: 3, important: 2, normal: 1 };
-                if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
-                    return priorityOrder[b.priority] - priorityOrder[a.priority];
-                }
-                
-                if (a.due_date && b.due_date) {
-                    return new Date(a.due_date) - new Date(b.due_date);
-                }
-                if (a.due_date) return -1;
-                if (b.due_date) return 1;
-                return 0;
-            });
-            break;
+            if (a.due_date && b.due_date) {
+                return new Date(a.due_date) - new Date(b.due_date);
+            }
+            if (a.due_date) return -1;
+            if (b.due_date) return 1;
+            return 0;
+        });
+        break;
     }
 
     tasksList.innerHTML = sortedTasks.map(task => createTaskCard(task)).join('');
